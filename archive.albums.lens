@@ -57,7 +57,7 @@
 
 				<ul class="list-unstyled">
 					<li>
-						<strong>Published:</strong>
+						<strong>Captured:</strong>
 						<koken:link to="archive" title="View all albums published this month"><koken:time /></koken:link>
 					</li>
 					<koken:categories>

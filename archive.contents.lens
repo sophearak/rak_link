@@ -60,7 +60,7 @@
 
 				<ul class="list-unstyled">
 					<li>
-						<strong>Published:</strong>
+						<strong>Captured:</strong>
 							<koken:link to="archive" title="View all {{ labels.content.plural case='lower' }} from this month">
 								<koken:time />
 							</koken:link>

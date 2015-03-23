@@ -87,17 +87,14 @@
 </div>
 
 
-	<!-- Fallback content if no data was loaded by koken:load -->
 	<koken:else>
 
-		<!-- Display fallback message in Site editor only -->
 		<koken:note>
 			No images or videos found. Upload some to the Library.
 		</koken:note>
 
 </koken:load>
 
-<!-- Turn on keyboard scrolling (left/right arrow keys) for items -->
 <koken:keyboard_scroll element=".item" />
 
 <koken:include file="inc/footer.html" />
