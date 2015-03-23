@@ -124,9 +124,8 @@
 					<koken:link lightbox="true" class="" title="View in lightbox">View in lightbox</koken:link>
 				</li>
 				<li>
-					<strong>Published:</strong>
+					<strong>Captured:</strong>
 					<koken:link to="archive" title="View all {{ labels.content.plural case='lower' }} from this month">
-						<!-- Publish the date it was captured -->
 						<koken:time />
 					</koken:link>
 				</li>
