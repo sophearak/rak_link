@@ -1,0 +1,225 @@
+<koken:include file="inc/header.html" />
+<koken:load>
+	<koken:head>
+		<meta property="og:site_name" content="{{ site.title }}" />
+		<meta property="og:title" content="{{ content.title|content.filename strip_html="true" }}" />
+		<meta property="og:description" content="{{ content.caption strip_html="true" }}" />
+		<meta property="og:type" content="website" />
+		<meta property="og:image" content="{{ content.presets.medium_large.url }}" />
+		<meta property="og:image:width" content="{{ content.presets.medium_large.width }}" />
+		<meta property="og:image:height" content="{{ content.presets.medium_large.height }}" />
+		<meta property="og:url" content="{{ content.url }}" />
+		<koken:content_image>
+			<koken:not empty="profile.twitter">
+				<meta name="twitter:card" content="photo" />
+				<meta name="twitter:site" content="@{{ profile.twitter }}" />
+				<meta name="twitter:creator" content="@{{ profile.twitter }}" />
+			</koken:not>
+		</koken:content_image>
+	</koken:head>
+
+<div class="grey-row" id="lists">
+  <div class="container row font-light">
+	<div class="row clear">
+		<div class="col col-6 tablet-col-6 mobile-full">
+	        <nav id="bread">
+		        <koken:breadcrumbs separator="/" />
+		    </nav>
+		</div>
+		<div class="col col-6 tablet-col-6 mobile-full">
+			<div id="content-pag" class="text-right mobile-text-center">
+				<koken:parent>
+					<koken:variable name="previous_label" value="Previous" />
+					<koken:variable name="next_label" value="Next" />
+				<koken:else>
+					<koken:variable name="previous_label" value="Newer" />
+					<koken:variable name="next_label" value="Older" />
+				</koken:parent>
+
+				<koken:previous>
+					<koken:link title="{{ previous_label }}" bind_to_key="left">&larr; {{ previous_label }}</koken:link>
+				<koken:else>
+				</koken:previous>
+
+				&nbsp;
+
+				<koken:context>
+					<koken:link title="View {{ context.title }}">
+						{{ context.title }}
+					</koken:link>
+					<span>({{ context.position }} of {{ context.total }})</span>
+				<koken:else>
+					<koken:link to="contents" title="{{ labels.content.plural }}">{{ labels.content.plural }}</koken:link>
+					<span>({{ context.position }} of {{ context.total }})</span>
+				</koken:context>
+
+				&nbsp;
+
+				<koken:next>
+					<koken:link title="{{ next_label }}" bind_to_key="right">{{ next_label }} &rarr;</koken:link>
+				<koken:else>
+				</koken:next>
+
+			</div>
+		</div>
+	</div>
+  </div>
+</div>
+
+	<koken:unlisted>
+		<p class="unlisted">
+			This page is unlisted. Please don't share a link to it.
+		</p>
+	</koken:unlisted>
+
+
+<div class="container mobile-container-full">
+	<koken:content_image>
+
+		<koken:link lightbox="true" bind_to_key="l" title="View in lightbox">
+			<koken:img lazy="true" />
+		</koken:link>
+
+	</koken:content_image>
+	<div class="text-center">
+		<h2>
+			{{ content.title | content.filename }}
+		</h2>
+		{{ content.caption paragraphs="true" }}
+	</div>
+
+	<div class="row clear">
+		<div class="col col-1-2 mobile-full">
+			<ul class="text-left list-unstyled mobile-text-center">
+				<koken:exif>
+					<li>
+						<koken:not empty="exif.model">
+							<span class="font-bold">Camera: </span><span>{{ exif.model }}</span>
+						</koken:not>
+					</li>
+					<li>
+						<koken:not empty="exif.focal_length">
+							<span class="font-bold">Focal Length: </span><span>{{ exif.focal_length }}</span>
+						</koken:not>
+					</li>
+					<li>
+						<koken:not empty="exif.exposure">
+							<span class="font-bold">Shutter Speed: </span><span>{{ exif.exposure }}</span>
+						</koken:not>
+					</li>
+					<li>
+						<koken:not empty="exif.aperture">
+							<span class="font-bold">Aperture: </span><span>{{ exif.aperture }}</span>
+						</koken:not>
+					</li>
+
+					<li>
+						<koken:not empty="exif.iso_speed_ratings">
+							<span class="font-bold">ISO: </span><span>{{ exif.iso_speed_ratings }}</span>
+						</koken:not>
+					</li>
+				</koken:exif>
+				<li>
+					<strong>Lightbox:</strong>
+					<koken:link lightbox="true" class="" title="View in lightbox">View in lightbox</koken:link>
+				</li>
+				<li>
+					<strong>Published:</strong>
+					<koken:link to="archive" title="View all {{ labels.content.plural case='lower' }} from this month">
+						<!-- Publish the date it was captured -->
+						<koken:time />
+					</koken:link>
+				</li>
+			</ul>
+		</div>
+		<div class="col col-1-2 mobile-full">
+			<ul class="text-right list-unstyled mobile-text-center">
+				<koken:albums>
+					<li>
+						<strong>Albums:</strong>
+						<koken:loop>
+							<koken:link title="View {{ album.title }}">
+								{{ album.title }}
+							</koken:link>
+						</koken:loop>
+					</li>
+				</koken:albums>
+
+				<koken:categories>
+					<li>
+						<strong>Categories:</strong>
+						<koken:loop separator=", ">
+							<!-- Link each to archive.contents.lens to view other images/videos assigned same category -->
+							<koken:link title="View all {{ labels.content.plural case='lower' }} in {{ category.title }}">
+								{{ category.title }}
+							</koken:link>
+						</koken:loop>
+					</li>
+				</koken:categories>
+
+				<koken:tags>
+					<li>
+						<strong>Tags:</strong>
+						<koken:loop separator=" ">
+							<!-- Link each to archive.contents.lens to view other images/videos assigned same tag -->
+							<koken:link title="View all {{ labels.content.plural case='lower' }} in #{{ tag.title }}">
+								#{{ tag.title }}
+							</koken:link>
+						</koken:loop>
+					</li>
+				</koken:tags>
+
+				<li>
+					<strong>License:</strong>
+					{{ content.license.clean }}
+				</li>
+				<koken:parent>
+					<li>
+						<strong>From the album:</strong>
+						<koken:link title="View {{ album.title }}">
+							{{ album.title }}
+						</koken:link>
+					</li>
+				</koken:parent>
+
+				<koken:not empty="{{ content.source.title }}">
+					<li>
+						<strong>Imported from:</strong>
+						<a href="{{ content.source.url }}" onclick="return !window.open(this.href);" title="View at {{ content.source.title }}">{{ content.source.title }}</a>
+					</li>
+				</koken:not>
+
+				<koken:geolocation>
+					<li>
+						<strong>Geolocation:</strong>
+						<a href="http://maps.google.com/?q={{ geolocation.latitude }},{{ geolocation.longitude }}" target="_blank">View map</a>
+					</li>
+				</koken:geolocation>
+
+				<koken:public>
+					<li>
+						<strong>Share:</strong>
+						<koken:link share="twitter">Twitter</koken:link>
+						<koken:link share="facebook">Facebook</koken:link>
+						<koken:link share="pinterest">Pinterest</koken:link>
+						<koken:link share="tumblr">Tumblr</koken:link>
+						<koken:link share="google-plus">Google+</koken:link>
+					</li>
+				</koken:public>
+			</ul>
+		</div>
+	</div>
+</div>
+
+
+	<!-- Fallback content if no data was loaded by koken:load -->
+	<koken:else>
+
+		<!-- Display fallback message in Site editor only -->
+		<koken:note>
+			No content found
+		</koken:note>
+
+</koken:load>
+
+<koken:include file="inc/footer.html" />

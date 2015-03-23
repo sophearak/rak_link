@@ -1,0 +1,20 @@
+{
+	"name": "Sophearak",
+	"version": "1.0.1",
+	"description": "Base on Base",
+	"demo": "http://sophearak.com",
+	"author": {
+		"name": "Sophearak",
+		"link": "https://sophearak.github.io"
+	},
+	"koken_version_required": "0.18.0",
+
+	"navigation_groups": {
+		"footer": {
+			"label": "Footer",
+			"defaults": [
+				"twitter", "facebook", "gplus"
+			]
+		}
+	}
+}

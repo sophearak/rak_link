@@ -1,0 +1,39 @@
+<koken:include file="inc/header.html" />
+
+<!-- Load this template's source data (categories) -->
+<koken:load>
+
+	<!-- Add Facebook Open Graph tags for nicer sharing -->
+	<koken:head>
+		<meta property="og:site_name" content="{{ site.title }}" />
+		<meta property="og:title" content="{{ labels.category.plural }}" />
+		<meta property="og:description" content="{{ site.description strip_html='true' }}" />
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content="{{ location.site_url }}{{ location.here }}" />
+	</koken:head>
+<div class="grey-row" id="headings">
+  <div class="container row-2 font-light">
+      <div class="clear row mobile-row tablet-text-left mobile-text-left">
+        <h2>{{ labels.category.plural }}</h2>
+        <ul>
+		<koken:loop>
+	        <li>
+				<koken:link title="View everything in {{ category.title }}">
+					{{ category.title }} ({{ category.counts.total }})
+				</koken:link>
+	        </li>
+		</koken:loop>
+        </ul>
+		<koken:include file="inc/pagination.html" />
+      </div>
+  </div>
+</div>
+
+<koken:else>
+	<koken:note>
+		No categories found
+	</koken:note>
+
+</koken:load>
+
+<koken:include file="inc/footer.html" />

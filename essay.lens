@@ -1,0 +1,188 @@
+<koken:include file="inc/header.html" />
+<koken:load>
+	<koken:head>
+		<meta property="og:site_name" content="{{ site.title }}" />
+		<meta property="og:title" content="{{ essay.title strip_html='true' }}" />
+		<meta property="og:description" content="{{ essay.excerpt strip_html='true' }}" />
+		<meta property="og:url" content="{{ essay.url }}" />
+		<meta property="og:type" content="website" />
+		<koken:featured_image>
+		<meta property="og:image" content="{{ content.presets.medium_large.url }}" />
+		<meta property="og:image:width" content="{{ content.presets.medium_large.width }}" />
+		<meta property="og:image:height" content="{{ content.presets.medium_large.height }}" />
+		</koken:featured_image>
+		<meta name="medium" content="article" />
+		<koken:not empty="profile.twitter">
+			<koken:featured_image>
+			<meta name="twitter:card" content="summary_large_image" />
+			<meta name="twitter:site" content="@{{ profile.twitter }}" />
+			<meta name="twitter:creator" content="@{{ profile.twitter }}" />
+			<meta name="twitter:image" content="{{ content.presets.medium_large.url }}" />
+			</koken:featured_image>
+		</koken:not>
+	</koken:head>
+
+
+<div class="grey-row" id="lists">
+  <div class="container row font-light">
+	<div class="row clear">
+		<div class="col col-6 tablet-col-6 mobile-full">
+	        <nav id="bread">
+		        <koken:breadcrumbs separator="/" />
+		    </nav>
+		</div>
+		<div class="col col-6 tablet-col-6 mobile-full">
+			<div id="content-pag" class="text-right">
+
+				<koken:next>
+					<koken:link title="Read {{ essay.title }}" bind_to_key="left">&larr; {{ essay.title }}</koken:link>&nbsp;&nbsp;
+				</koken:next>
+
+				<koken:previous>
+					&nbsp;&nbsp;<koken:link title="Read {{ essay.title }}" bind_to_key="right">{{ essay.title }} &rarr; </koken:link>
+				</koken:previous>
+
+			</div>
+		</div>
+	</div>
+  </div>
+</div>
+
+
+
+
+
+<div class="container mobile-container-full">
+	<h2 class="h3 text-center">{{ essay.title }}</h2>
+
+	{{ essay.content }}
+
+	<ul class="blank">
+
+	<!-- Publishes the link for this essay -->
+	<li>
+		<strong>Permalink:</strong>
+		<koken:link title="{{ essay.title }}">Link</koken:link>
+	</li>
+		<koken:categories>
+			<li>
+				<strong>Category:</strong>
+				<koken:loop separator=", ">
+					<koken:link title="View all {{ labels.essay.plural case='lower' }} in {{ category.title }}">
+						{{ category.title }}
+					</koken:link>
+				</koken:loop>
+			</li>
+		</koken:categories>
+		<koken:tags>
+			<li>
+				<strong>Tags:</strong>
+					<koken:loop separator=", ">
+					<koken:link title="View all {{ labels.essay.plural case='lower' }} in {{ tag.title }}">
+						{{ tag.title }}
+					</koken:link>
+				</koken:loop>
+			</li>
+		</koken:tags>
+		<li>
+			<strong>Share:</strong>
+			<koken:link share="twitter">Twitter</koken:link>
+			<koken:link share="facebook">Facebook</koken:link>
+			<koken:link share="pinterest">Pinterest</koken:link>
+			<koken:link share="tumblr">Tumblr</koken:link>
+			<koken:link share="google-plus">Google+</koken:link>
+		</li>
+		<koken:topics>
+			<li>
+			<strong>Related content:</strong>
+			<br>
+			<koken:loop>
+				<koken:link title="View {{ album.title }}">
+					<koken:img preset="small" />
+				</koken:link>
+				<br>
+				<koken:link title="View {{ album.title }}">
+					{{ album.title }}
+				</koken:link>
+				({{ album.counts.total }} images)
+			</koken:loop>
+			</li>
+		</koken:topics>
+	</ul>
+
+	<koken:discussion>
+
+		<h5>Comments</h5>
+
+		{{ discussion }}
+
+	</koken:discussion>
+</div>
+
+<div class="dark-blue-row">
+  <div class="container row-5 mobile-full mobile-row-2 clear font-light">
+    <div class="left col-3 mobile-full mobile-row-2 text-center">
+      <h5 class="font-light h4">View {{ labels.essay.plural case="lower" }} by date</h5>
+      <p class="col-11 mobile-full no-margin">
+		<koken:dates limit_to="essays">
+			<koken:select label="Select month" />
+		</koken:dates>
+      </p>
+    </div>
+    <div class="col col-3 mobile-full mobile-row-2 mobile-no-gutter text-center">
+		<koken:categories limit_to="essays" order_by="essay_count">
+			<h5 class="font-light">View {{ labels.essay.plural case="lower" }} by {{ labels.category.singular case="lower" }}</h5>
+			<p>	
+			<koken:loop>
+				<koken:link title="title="View all {{ labels.essay.plural case='lower' }} in {{ category.title }}"">
+					{{ category.title }} ({{ category.counts.total }})
+				</koken:link>
+				<br>
+			</koken:loop>
+			</p>	
+		</koken:categories>
+    </div>
+    <div class="col col-3 mobile-full mobile-row-2 mobile-no-gutter text-center">
+		<koken:categories>
+			<koken:loop>
+				<section>
+					<h5 class="font-light">Other {{ labels.essay.plural case="lower" }} in {{ category.title }}</h5>
+					<koken:load source="essays" filter:category="{{ category.id }}">
+						<p>
+						<koken:loop>
+							<koken:link title="Read {{ essay.title }}">
+								{{ essay.title }}
+							</koken:link>
+							<br>
+						</koken:loop>
+						</p>	
+					</koken:load>
+				</section>
+			</koken:loop>
+		</koken:categories>
+    </div>
+    <div class="col col-3 mobile-full mobile-row-2 mobile-no-gutter text-center">
+		<koken:tags limit_to="essays" order_by="essay_count">
+			<h5 class="font-light">View {{ labels.essay.plural case="lower" }} by {{ labels.tag.singular case="lower" }}</h5>
+			<p>
+			<koken:loop>
+				<koken:link title="View all {{ labels.essay.plural case='lower' }} in {{ tag.title }}">
+					{{ tag.title }} ({{ tag.counts.total }})
+				</koken:link>
+				<br>
+			</koken:loop>
+			</p>	
+		</koken:tags>
+    </div>
+  </div>
+</div>
+
+	<koken:else>
+
+		<koken:note>
+			No essay found. Create one in Text.
+		</koken:note>
+
+</koken:load>
+
+<koken:include file="inc/footer.html" />

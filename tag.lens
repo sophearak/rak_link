@@ -1,0 +1,72 @@
+<koken:include file="inc/header.html" />
+
+<!-- Load this template's source data (tag). Limit to 20 items. -->
+<koken:load limit="20">
+
+	<!-- Add Facebook Open Graph tags for nicer sharing -->
+	<koken:head>
+		<meta property="og:site_name" content="{{ site.title }}" />
+		<meta property="og:title" content="{{ labels.tag.plural }} / {{ tag.title }}" />
+		<meta property="og:description" content="{{ site.description strip_html='true' }}" />
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content="{{ location.site_url }}{{ location.here }}" />
+	</koken:head>
+
+<div class="grey-row" id="lists">
+  <div class="container row font-light">
+      <div class="clear row mobile-row tablet-text-left mobile-text-left">
+        <nav id="bread">
+	        <koken:breadcrumbs separator="/" />
+	    </nav>
+    </div>
+  </div>
+</div>
+
+<div class="smoke-row benefits-block">
+	<h2 class="sub-heading uppercase"><span>All recent Photos tagged #{{ tag.title }}</span></h2>
+	<div class="container row-3 font-light">
+		<div class="clear row mobile-row text-center tablet-text-left mobile-text-left">
+		<koken:loop>
+			<koken:include file="inc/events.html" />
+		</koken:loop>
+		</div>
+		<koken:include file="inc/pagination.html" />
+	</div>
+</div>
+
+<div class="dark-blue-row">
+	<div class="container row-5 mobile-full mobile-row-2 clear font-light">
+		<div class="col col-1-2 mobile-full mobile-row-2 mobile-no-gutter text-center">
+			<koken:categories>
+				<h4 class="font-light h4">View everything by {{ labels.category.singular case="lower" }}</h4>
+				<koken:loop>
+					<koken:link title="View everything in {{ category.title }}">
+						{{ category.title }} ({{ category.counts.total }})
+					</koken:link>
+					<br>
+				</koken:loop>
+			</koken:categories>
+		</div>
+		<div class="col col-1-2 mobile-full mobile-row-2 mobile-no-gutter text-center">
+			<koken:tags>
+				<h4 class="font-light h4">View everything by {{ labels.tag.singular case="lower" }}</h4>
+				<koken:loop>
+					<koken:link title="View everything in {{ tag.title }}">
+						{{ tag.title }} ({{ tag.counts.total }})
+					</koken:link>
+					<br>
+				</koken:loop>
+			</koken:tags>
+		</div>
+	</div>
+</div>
+
+<koken:else>
+
+	<koken:note>
+		No tag events found
+	</koken:note>
+
+</koken:load>
+
+<koken:include file="inc/footer.html" />

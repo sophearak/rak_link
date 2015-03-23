@@ -1,0 +1,134 @@
+<koken:include file="inc/header.html" />
+<koken:load limit="4">
+	<koken:head>
+		<meta property="og:site_name" content="{{ site.title }}" />
+		<meta property="og:title" content="{{ labels.album.plural }}" />
+		<meta property="og:description" content="{{ site.description strip_html='true' }}" />
+		<meta property="og:type" content="website" />
+		<koken:first>
+			<koken:covers>
+				<koken:first>
+					<meta property="og:image" content="{{ content.presets.medium_large.url }}" />
+					<meta property="og:image:width" content="{{ content.presets.medium_large.width }}" />
+					<meta property="og:image:height" content="{{ content.presets.medium_large.height }}" />
+				</koken:first>
+			</koken:covers>
+		</koken:first>
+		<meta property="og:url" content="{{ location.site_url }}{{ location.here }}" />
+		<koken:not empty="profile.twitter">
+			<meta name="twitter:card" content="gallery" />
+			<meta name="twitter:site" content="@{{ profile.twitter }}" />
+			<meta name="twitter:creator" content="@{{ profile.twitter }}" />
+			<koken:loop>
+				<koken:covers>
+					<koken:shift>
+						<meta name="twitter:image{{ index }}" content="{{ content.presets.medium_large.cropped.url }}">
+					</koken:shift>
+				</koken:covers>
+			</koken:loop>
+		</koken:not>
+	</koken:head>
+</koken:load>
+<koken:load limit="9">
+
+<div class="grey-row" id="lists">
+  <div class="container row font-light">
+      <div class="clear row mobile-row tablet-text-left mobile-text-left">
+        <nav id="bread">
+	        <koken:breadcrumbs separator="/" />
+	    </nav>
+    </div>
+  </div>
+</div>
+
+<div class="smoke-row benefits-block">
+	<h2 class="sub-heading uppercase"><span>Archived Albums</span></h2>
+	<div class="container row-3 font-light">
+		<div class="clear row mobile-row text-center tablet-text-left mobile-text-left">
+		<koken:loop>
+			<div class="col col-1-3 mobile-full content-block">
+				<koken:link title="View {{ album.title }}">
+					<koken:img size="4:3" />
+				</koken:link>
+
+				<h3 class="h5 normal title"><koken:link title="View {{ album.title }}">{{ album.title }}</koken:link></h3>
+
+				<p>{{ album.summary paragraphs="true" }}</p>
+
+				<ul class="list-unstyled">
+					<li>
+						<strong>Published:</strong>
+						<koken:link to="archive" title="View all albums published this month"><koken:time /></koken:link>
+					</li>
+					<koken:categories>
+					<li>
+						<strong>{{ labels.category.plural }}:</strong>
+						<koken:loop separator=", ">
+							<koken:link title="View all {{ labels.album.plural case='lower' }} in {{ category.title }}">
+								{{ category.title }}
+							</koken:link>
+						</koken:loop>
+					</li>
+					</koken:categories>
+					<koken:tags>
+					<li>
+						<strong>{{ labels.tag.plural }}:</strong>
+						<koken:loop separator=" ">
+							<koken:link title="View all {{ labels.album.plural case='lower' }} in #{{ tag.title }}">
+								#{{ tag.title }}
+							</koken:link>
+						</koken:loop>
+					</li>
+					</koken:tags>
+				</ul>
+			</div>
+		</koken:loop>
+		</div>
+		<koken:include file="inc/pagination.html" />
+	</div>
+</div>
+
+<div class="dark-blue-row">
+	<div class="container row-5 mobile-full mobile-row-2 clear font-light">
+		<div class="left col-4 mobile-full mobile-row-2 text-center">
+			<h4 class="font-light h4">View {{ labels.album.plural case="lower" }} by date</h4>
+			<p class="col-11 mobile-full no-margin">
+				<koken:dates limit_to="albums">
+					<koken:select label="Select month" />
+				</koken:dates>
+			</p>
+		</div>
+		<div class="col col-4 mobile-full mobile-row-2 mobile-no-gutter text-center">
+			<koken:categories limit_to="albums" order_by="album_count">
+			<h4 class="font-light h4">View {{ labels.album.plural case="lower" }} by {{ labels.category.singular case="lower" }}</h4>
+				<koken:loop>
+				<p class="col-11 mobile-full no-margin">
+					<koken:link title="View all {{ labels.album.plural case='lower' }} in {{ category.title }}">
+						{{ category.title }} ({{ category.counts.total }})
+					</koken:link>
+					<br>
+				</p>
+				</koken:loop>
+			</koken:categories>
+		</div>
+		<div class="col col-4 mobile-full mobile-row-2 mobile-no-gutter text-center">
+			<koken:tags limit_to="albums" order_by="album_count">
+			<h4 class="font-light h4">View {{ labels.album.plural case="lower" }} by {{ labels.tag.singular case="lower" }}</h4>
+				<koken:loop>
+					<p class="col-11 mobile-full no-margin">
+						<koken:link title="View all {{ labels.album.plural case='lower' }} in #{{ tag.title }}">
+							{{ tag.title }} ({{ tag.counts.total }})
+						</koken:link>
+					</p>
+				</koken:loop>
+			</koken:tags>
+		</div>
+	</div>
+</div>
+
+<koken:else>
+	<koken:note>
+		No albums found
+	</koken:note>
+</koken:load>
+<koken:include file="inc/footer.html" />

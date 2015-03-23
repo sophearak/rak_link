@@ -1,0 +1,75 @@
+<koken:include file="inc/header.html" />
+<koken:load>
+	<koken:head>
+		<meta property="og:site_name" content="{{ site.title }}" />
+		<meta property="og:title" content="{{ site.title }}" />
+		<meta property="og:description" content="{{ site.description strip_html='true' }}" />
+		<meta property="og:type" content="website" />
+		<koken:first>
+		<meta property="og:image" content="{{ content.presets.medium_large.url }}" />
+		<meta property="og:image:width" content="{{ content.presets.medium_large.width }}" />
+		<meta property="og:image:height" content="{{ content.presets.medium_large.height }}" />
+		</koken:first>
+		<meta property="og:url" content="{{ location.site_url }}{{ location.here }}" />
+		<koken:not empty="profile.twitter">
+			<meta name="twitter:card" content="gallery" />
+			<meta name="twitter:site" content="@{{ profile.twitter }}" />
+			<meta name="twitter:creator" content="@{{ profile.twitter }}" />
+			<koken:loop limit="4">
+				<meta name="twitter:image{{ index }}" content="{{ content.presets.medium_large.cropped.url }}">
+			</koken:loop>
+		</koken:not>
+	</koken:head>
+
+
+	<div class="slideshow">
+		<koken:pulse jsvar="pulse" next="#sldshw_next" previous="#sldshw_prev" toggle="#sldshw_play" fullscreen="#sldshw_fs" restart="#sldshw_restart" fallbacktext="No featured content found. Assign some in the Library." crop="landscape" size="16:9" height="100%" link_to="content" />
+	</div>
+
+	<!-- Optional script to change playback toggle text -->
+	<script>
+		pulse.on( 'playing', function(isPlaying) {
+			var el = $('#sldshw_play');
+			if (isPlaying) {
+				el.html('Pause');
+			} else {
+				el.html('Play');
+			}
+		});
+	</script>
+
+<!-- Fallback content if no data was loaded by koken:load -->
+<koken:else>
+
+	<!-- Use koken:note to display this message in the Site editor only -->
+	<koken:note>
+		No featured content found. Assign content in the Library.
+	</koken:note>
+
+</koken:load>
+
+<koken:load source="featured_albums">
+<div class="smoke-row benefits-block">
+  <h2 class="sub-heading uppercase"><span>Featured albums</span></h2>
+  <div class="container row-3 font-light">
+      <div class="clear row mobile-row text-center tablet-text-left mobile-text-left">
+        <koken:loop>
+        <div class="col col-1-3 mobile-full content-block">
+			<koken:link>
+				<koken:img size="1:1" />
+			</koken:link>
+			<h3 class="h6 normal album-title"><koken:link>{{ album.title }}</koken:link></h3>
+        </div>
+		</koken:loop>
+
+      </div>
+  </div>
+</div>
+	<koken:else>
+	<koken:note>
+		No featured albums found
+	</koken:note>
+</koken:load>
+
+
+<koken:include file="inc/footer.html" />
