@@ -50,7 +50,7 @@
 					</koken:link>
 				</koken:content_image>
 
-				<h3 class="h5 normal title">
+				<h3 class="h5 normal album-title">
 					<koken:link title="View {{ content.title | content.filename }}">
 						{{ content.title | content.filename }}
 					</koken:link>

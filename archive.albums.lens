@@ -51,7 +51,7 @@
 					<koken:img size="4:3" />
 				</koken:link>
 
-				<h3 class="h5 normal title"><koken:link title="View {{ album.title }}">{{ album.title }}</koken:link></h3>
+				<h3 class="h5 normal album-title"><koken:link title="View {{ album.title }}">{{ album.title }}</koken:link></h3>
 
 				<p>{{ album.summary paragraphs="true" }}</p>
 
