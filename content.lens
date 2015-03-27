@@ -73,7 +73,7 @@
 	</koken:unlisted>
 
 
-<div class="container mobile-container-full">
+<div class="container text-center mobile-container-full">
 	<koken:content_image>
 
 		<koken:link lightbox="true" bind_to_key="l" title="View in lightbox">
